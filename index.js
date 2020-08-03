@@ -51,7 +51,7 @@ export function convertToRPN(expression) {
         RPNExpression.push(stack[i]);
     }
 
-    return RPNExpression;
+    return RPNExpression.join(' ');
 }
 
 function validateExpression(expression) {
