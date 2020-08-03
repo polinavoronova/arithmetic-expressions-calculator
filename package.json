@@ -1,0 +1,28 @@
+{
+  "name": "arithmetic-expressions-calculator-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polinavoronova/arithmetic-expressions-calculator.git"
+  },
+  "author": "Polina Voronova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/polinavoronova/arithmetic-expressions-calculator/issues"
+  },
+  "homepage": "https://github.com/polinavoronova/arithmetic-expressions-calculator#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babel-loader": "^8.1.0",
+    "jest": "^26.0.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {}
+}

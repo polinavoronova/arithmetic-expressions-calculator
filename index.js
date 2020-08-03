@@ -1,6 +1,8 @@
 const expression = '2 * ( 3 + 6 / 2 ) / 4';
 
 export function convertToRPN(expression) {
+    validateExpression(expression);
+
     let symbols = expression.split(' ');
     let RPNExpression = [];
     let stack = [];
