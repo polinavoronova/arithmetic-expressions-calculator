@@ -85,5 +85,23 @@ function validateExpression(expression) {
 }
 
 export function calculateRPNExpression(expression) {
+    let symbols = expression.split(' ');
+    let stack = [];
+    let result;
 
+    for (let value = 0; value < symbols.length; value++) {
+        let lastNumber = stack[stack.length-1];
+        let penultNumber = stack[stack.length-2];
+        if(!isNaN(+symbols[value])) {
+            stack.push(symbols[value]);
+            continue
+        }
+
+        result = String(eval(penultNumber + symbols[value] + lastNumber));
+        stack.pop();
+        stack.pop();
+        stack.push(result);
+    }
+
+    return result;
 }
