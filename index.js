@@ -62,6 +62,8 @@ function validateExpression(expression) {
     }
 
     let symbols = expression.split(' ');
+    let stack = [];
+    let lastValue = '';
     for (let value of symbols) {
         if (!isNaN(+value) && +value > 0) { //Проверка на числа, положительные числа
             continue;
@@ -80,9 +82,42 @@ function validateExpression(expression) {
             continue;
         }
 
-        //функция для проверки валидности порядка скобок (пробегаю, закидываю в стек и при встрече следующей проверяю на парность)
+        throw new Error('Invalid expression: restricted symbols');
+    }
 
-        throw new Error('Invalid expression: invalid parentheses or double operators or restricted symbols');
+    //проверка на двойные операторы
+    for (let value of symbols) {
+        const operators = {
+            '+': true,
+            '-': true,
+            '*': true,
+            '/': true
+        };
+        
+        if (operators.hasOwnProperty(value) && operators.hasOwnProperty(lastValue)) {
+            throw new Error('Invalid expression: double operators');
+        }
+    }
+
+    //функция для проверки валидности порядка скобок и их парности (пробегаю, закидываю в стек и при встрече следующей проверяю на парность)
+    for (let i = 0; i < symbols.length - 1; i++) {
+        let value = symbols[i];
+
+        if (value === '(') {
+            stack.push(value);
+        } else if (value === ')') {
+            if (stack[stack.length - 1] === '(') {
+                stack.pop(stack.length - 1);
+            } else if (isNaN(+lastValue)) {
+                throw new Error('Invalid expression: invalid parentheses');
+            }
+        }
+
+        if (i === (symbols.length - 1) && stack.length !== 0) {
+            throw new Error('Invalid expression: invalid parentheses');
+        }
+
+        lastValue = value;
     }
 }
 
@@ -92,9 +127,9 @@ export function calculateRPNExpression(expression) {
     let result;
 
     for (let value = 0; value < symbols.length; value++) {
-        let lastNumber = stack[stack.length-1];
-        let penultNumber = stack[stack.length-2];
-        if(!isNaN(+symbols[value])) {
+        let lastNumber = stack[stack.length - 1];
+        let penultNumber = stack[stack.length - 2];
+        if (!isNaN(+symbols[value])) {
             stack.push(symbols[value]);
             continue
         }
