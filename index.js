@@ -97,6 +97,8 @@ function validateExpression(expression) {
         if (operators.hasOwnProperty(value) && operators.hasOwnProperty(lastValue)) {
             throw new Error('Invalid expression: double operators');
         }
+
+        lastValue = value;
     }
 
     //функция для проверки валидности порядка скобок и их парности (пробегаю, закидываю в стек и при встрече следующей проверяю на парность)
@@ -140,5 +142,5 @@ export function calculateRPNExpression(expression) {
         stack.push(result);
     }
 
-    return result;
+    return +result;
 }
